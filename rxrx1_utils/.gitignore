@@ -1,13 +1,42 @@
+scratches
+
+# editor
+*.swp
+
+# backup
+*.bak
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Possible secrets
+*.json
+*.yaml
+*.yml
+secrets.tar
+!.travis.yml
+!environment.yml
+deploy/kube/
+deploy/terraform/
+!conda.recipe/meta.yaml
+!configome.sample.yaml
+
+# Terraform
+.terraform
+*.tf
+*.tfstate
+*.backup
 
 # C extensions
 *.so
-input/
+
 # Distribution / packaging
 .Python
+env/
 build/
 develop-eggs/
 dist/
