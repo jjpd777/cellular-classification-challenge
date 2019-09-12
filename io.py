@@ -1,16 +1,16 @@
 import os
 import numpy as np
-from skimage.io import imread
+# from skimage.io import imread
 import pandas as pd
 import cv2
 
-import tensorflow as tf
+# import tensorflow as tf
 
 DEFAULT_BASE_PATH = 'gs://rxrx1-us-central1'
 BASE_PATH= './input/train/HEPG2-01/Plate1/B02_s1_w1.png'
 DEFAULT_METADATA_BASE_PATH = os.path.join(DEFAULT_BASE_PATH, 'metadata')
 #DEFAULT_IMAGES_BASE_PATH = os.path.join(DEFAULT_BASE_PATH, 'images')
-DEFAULT_IMAGES_BASE_PATH = './input' 
+DEFAULT_IMAGES_BASE_PATH = './input'
 
 DEFAULT_CHANNELS = (1, 2, 3, 4, 5, 6)
 RGB_MAP = {
@@ -168,47 +168,47 @@ def load_site(dataset,
         for c in channels
     ]
     return load_images_as_tensor(channel_paths)
-load_site('train','RPE-05',3,'D19',2)
 #
-#
-#def load_site_as_rgb(dataset,
-#                     experiment,
-#                     plate,
-#                     well,
-#                     site,
-#                     channels=DEFAULT_CHANNELS,
-#                     base_path=DEFAULT_IMAGES_BASE_PATH,
-#                     rgb_map=RGB_MAP):
-#    """
-#    Loads and returns the image data as RGB image
-#
-#    Parameters
-#    ----------
-#    dataset : str
-#        what subset of the data: train, test
-#    experiment : str
-#        experiment name
-#    plate : int
-#        plate number
-#    address : str
-#        plate address
-#    site : int
-#        site number
-#    channels : list of int
-#        channels to include
-#    base_path : str
-#        the base path of the raw images
-#    rgb_map : dict
-#        the color mapping for each channel
-#        See rxrx.io.RGB_MAP to see what the defaults are.
-#
-#    Returns
-#    -------
-#    np.ndarray the image data of the site as RGB channels
-#    """
-#    x = load_site(dataset, experiment, plate, well, site, channels, base_path)
-#    return convert_tensor_to_rgb(x, channels, rgb_map=rgb_map)
-#
+
+def load_site_as_rgb(dataset,
+                    experiment,
+                    plate,
+                    well,
+                    site,
+                    channels=DEFAULT_CHANNELS,
+                    base_path=DEFAULT_IMAGES_BASE_PATH,
+                    rgb_map=RGB_MAP):
+   """
+   Loads and returns the image data as RGB image
+
+   Parameters
+   ----------
+   dataset : str
+       what subset of the data: train, test
+   experiment : str
+       experiment name
+   plate : int
+       plate number
+   address : str
+       plate address
+   site : int
+       site number
+   channels : list of int
+       channels to include
+   base_path : str
+       the base path of the raw images
+   rgb_map : dict
+       the color mapping for each channel
+       See rxrx.io.RGB_MAP to see what the defaults are.
+
+   Returns
+   -------
+   np.ndarray the image data of the site as RGB channels
+   """
+   x = load_site(dataset, experiment, plate, well, site, channels, base_path)
+   return convert_tensor_to_rgb(x, channels, rgb_map=rgb_map)
+load_site_as_rgb('train','HEPG2-01',1,'B02',2)
+
 #
 #def _tf_read_csv(path):
 #    with tf.io.gfile.GFile(path, 'rb') as f:
