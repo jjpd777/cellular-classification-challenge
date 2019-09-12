@@ -1,14 +1,9 @@
 import os
 import numpy as np
-from skimage.io import imread, imsave
+from skimage.io import imread
 import pandas as pd
-import cv2
 
-# import tensorflow as tf
-
-BASE_PATH= './input/train/HEPG2-01/Plate1/B02_s1_w1.png'
 DEFAULT_IMAGES_BASE_PATH = './input'
-
 DEFAULT_CHANNELS = (1, 2, 3, 4, 5, 6)
 
 
@@ -32,8 +27,8 @@ def image_path(dataset, experiment, plate, address, site, channel,
                         "{}_s{}_w{}.png".format(address, site, channel))
 
 #
-def load_site(dataset, experiment, plate, well, site,
-              channels=DEFAULT_CHANNELS, base_path=DEFAULT_IMAGES_BASE_PATH):
+def load_site(base_path, dataset, experiment, plate, well, site,
+              channels=DEFAULT_CHANNELSs):
 
     channel_paths = [
         image_path(

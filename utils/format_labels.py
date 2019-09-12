@@ -2,7 +2,7 @@ import pandas as pd
 from rxrx_utils import load_site
 import numpy as np
 
-
+BASE_PATH = "./input"
 def write_labels_to_csv(train_path,test_path):
     train =pd.read_csv(train_path)
     test =pd.read_csv(test_path)
@@ -38,17 +38,14 @@ def rewrite_to_array(path,sirna):
 
     sites = [1,2]
     for site in sites:
-        array_image = load_site('train',experiment,plate_number,well,site)
+        array_image = load_site(BASE_PATH,'train',experiment,plate_number,well,site)
         tag = '-'.join(elements)+ '-'+str(site)
         destination = "./clean_data/"+str(sirna) + "-"+tag
 
         save_array(destination,array_image)
 
 def dataframe_to_arrray(df):
-    print("lool")
-    print(df.head(5))
     rows = df.shape[0]
-    print(df.shape)
     for i in range(rows):
         path = df.iloc[i,0]
         sirna = df.iloc[i,1]
