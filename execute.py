@@ -1,4 +1,3 @@
-from utils.format_labels import write_labels_to_csv, dataframe_to_arrray, free_memory
 import pandas as pd
 
 
@@ -9,7 +8,9 @@ TEST = BASE_PATH + "test.csv"
 # write_labels_to_csv(TRAIN,TEST)
 
 
-LABELED = "./train_sirna_labels.csv"
+LABELED = "./input/test_controls.csv"
 data = pd.read_csv(LABELED)
+print(data.shape)
+print(data.head(10))
 #dataframe_to_arrray(data)
-free_memory(data)
+#free_memory(data)
