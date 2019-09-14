@@ -23,12 +23,9 @@ from keras.callbacks import LearningRateScheduler
 import keras.backend as K
 import numpy as np
 import argparse
-import sys
 import json
 
 store_params()
-# set a high recursion limit so Theano doesn't complain
-sys.setrecursionlimit(5000)
 
 def poly_decay(epoch):
 	max_epochs = config.EPOCHS
@@ -62,9 +59,8 @@ valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
 if args["model"] is None:
 	print("[INFO] compiling model...")
 	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
-	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES,
-		(3,4,6),(64,128,256,512), reg=config.NETWORK_REG)
-	model.compile(loss="binary_crossentropy", optimizer=opt,
+	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, (3,4,6),(64,128,256,512), reg=config.NETWORK_REG)
+	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
 
 # otherwise, load the checkpoint from disk
@@ -85,8 +81,7 @@ callbacks = [
 		startAt=args["start_epoch"]),
 	TrainingMonitor(config.EXPERIMENT_NAME+"resnet56_pneumonia.png",
 		jsonPath=config.EXPERIMENT_NAME+"resnet56_pneumonia.json",
-		startAt=args["start_epoch"]),
-		LearningRateScheduler(poly_decay)]
+		startAt=args["start_epoch"])]
 
 # train the network
 print("[INFO] training network...")
