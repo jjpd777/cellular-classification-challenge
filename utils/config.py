@@ -3,8 +3,8 @@ import json
 IMAGES_PATH = "./clean_data/train/"
 
 RESIZE = 128
-NUM_CLASSES = 2
-DATASET_MEAN = "./output/malaria_mean.json"
+NUM_CLASSES = 1108
+NUM_CHANNELS = 6
 
 EPOCHS = 75
 BATCH_SIZE = 64
@@ -13,9 +13,6 @@ POWER = 2.5
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
 NETWORK_REG = 0.001
-## IF FINE TUNING FCHEAD
-FCH1 = 512
-FCH2 = 128
 
 TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
 VAL_HDF5 = "./clean_data/hdf5/val.hdf5"

@@ -8,15 +8,10 @@ import matplotlib
 matplotlib.use("Agg")
 
 # import the necessary packages
-from sklearn.preprocessing import LabelBinarizer
-from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
-from utils import PatchPreprocessor
-from utils import MeanPreprocessor
-from utils import CropPreprocessor
 from utils import HDF5DatasetGenerator
-from utils import p_config as config
-from utils.p_config import store_params
+from utils import config as config
+from utils.config import store_params
 from utils import ResNet
 from utils import EpochCheckpoint
 from utils import TrainingMonitor
@@ -51,27 +46,24 @@ ap.add_argument("-s", "--start-epoch", type=int, default=0,
 	help="epoch to restart training at")
 args = vars(ap.parse_args())
 
-sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
-
 aug = ImageDataGenerator(rescale= 1 / 255.0,rotation_range=20, zoom_range=0.05,
 	width_shift_range=0.05, height_shift_range=0.05, shear_range=0.05,
 	horizontal_flip=True, fill_mode="nearest")
 valaug = ImageDataGenerator(rescale= 1 / 255.0)
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
-	preprocessors=[sp], classes=2)
+ 		classes=config.NUM_CLASSES)
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
-	preprocessors=[sp], classes=2)
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,aug=valaug,
-	preprocessors=[sp], classes=config.NUM_CLASSES)
+	 classes=config.NUM_CLASSES)
+
 
 # if there is no specific model checkpoint supplied, then initialize
 # the network (ResNet-56) and compile the model
 if args["model"] is None:
 	print("[INFO] compiling model...")
 	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
-	model = ResNet.build(config.RESIZE, config.RESIZE, 3, 2, (3,4,6),
-		(64,128,256,512), reg=config.NETWORK_REG)
+	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES,
+		(3,4,6),(64,128,256,512), reg=config.NETWORK_REG)
 	model.compile(loss="binary_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
 
@@ -109,4 +101,3 @@ model.fit_generator(
 
 trainGen.close()
 valGen.close()
-testGen.close()
