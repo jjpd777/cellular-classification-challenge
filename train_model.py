@@ -16,7 +16,7 @@ from utils import ResNet
 from utils import EpochCheckpoint
 from utils import TrainingMonitor
 from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 from keras.datasets import cifar10
 from keras.models import load_model
 from keras.callbacks import LearningRateScheduler
@@ -57,7 +57,8 @@ valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
 # the network (ResNet-56) and compile the model
 if args["model"] is None:
 	print("[INFO] compiling model...")
-	opt = SGD(lr=config.LEARNING_RATE,nesterov=True,decay=config.DECAY)
+	#opt = SGD(lr=config.LEARNING_RATE,nesterov=True,decay=config.DECAY)
+	opt = Adam(lr=config.LEARNING_RATE)
 	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, stages=config.STAGES,filters = config.FILTERS, reg=config.NETWORK_REG)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
