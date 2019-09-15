@@ -9,7 +9,7 @@ NUM_CHANNELS = 6
 
 EPOCHS = 50 
 BATCH_SIZE = 32 
-LEARNING_RATE = 0.191
+LEARNING_RATE = 0.01
 POWER = 2.5
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
@@ -17,14 +17,14 @@ FCH1 =64
 FCH2 = 128
 NETWORK_REG = 0.008
 STAGES = (3,3,3)
-FILTERS = (512,256,128,256)
+FILTERS = (64,128,128,256)
 
 TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
 VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
 TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
 HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 PARAMS = "parameters.txt"
-EXP_NUM = "experiment-1/"
+EXP_NUM = "experiment-2/"
 EXPERIMENT_NAME = "./output/" + EXP_NUM
 LOG_NAME = EXPERIMENT_NAME + "console.log" 
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints"

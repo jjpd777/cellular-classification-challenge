@@ -50,15 +50,14 @@ valaug = ImageDataGenerator(rescale= 1 / 255.0)
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
  		classes=config.NUM_CLASSES)
-valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=aug,
-	 classes=config.NUM_CLASSES)
-
+valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
+ 		classes=config.NUM_CLASSES)
 
 # if there is no specific model checkpoint supplied, then initialize
 # the network (ResNet-56) and compile the model
 if args["model"] is None:
 	print("[INFO] compiling model...")
-	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
+	opt = SGD(lr=config.LEARNING_RATE,nesterov=True,decay=config.DECAY)
 	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, stages=config.STAGES,filters = config.FILTERS, reg=config.NETWORK_REG)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
