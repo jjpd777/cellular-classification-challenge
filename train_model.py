@@ -50,7 +50,7 @@ valaug = ImageDataGenerator(rescale= 1 / 255.0)
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
  		classes=config.NUM_CLASSES)
-valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
+valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=aug,
 	 classes=config.NUM_CLASSES)
 
 
@@ -59,7 +59,7 @@ valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
 if args["model"] is None:
 	print("[INFO] compiling model...")
 	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
-	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, (3,4,6),(64,128,256,512), reg=config.NETWORK_REG)
+	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, stages=config.STAGES,filters = config.FILTERS, reg=config.NETWORK_REG)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
 
@@ -71,7 +71,7 @@ else:
 	# update the learning rate
 	print("[INFO] old learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
-	K.set_value(model.optimizer.lr, 1e-5)
+	K.set_value(model.optimizer.lr, 0.01)
 	print("[INFO] new learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
 

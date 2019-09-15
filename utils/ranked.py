@@ -15,7 +15,7 @@ def rank5_accuracy(preds, labels):
 
 		# check if the ground-truth label is in the top-5
 		# predictions
-		if gt in p[:5]:
+		if gt in p[:500]:
 			rank5 += 1
 
 		# check to see if the ground-truth is the #1 prediction

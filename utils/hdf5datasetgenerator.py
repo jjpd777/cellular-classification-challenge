@@ -5,7 +5,7 @@ import h5py
 
 class HDF5DatasetGenerator:
 	def __init__(self, dbPath, batchSize, preprocessors=None,
-		aug=None, binarize=False, classes=2):
+		aug=None, binarize=True, classes=1108):
 		# store the batch size, preprocessors, and data augmentor,
 		# whether or not the labels should be binarized, along with
 		# the total number of classes
