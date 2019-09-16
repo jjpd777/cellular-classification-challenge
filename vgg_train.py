@@ -59,7 +59,8 @@ if args["model"] is None:
 	print("[INFO] compiling model...")
 	#opt = SGD(lr=config.LEARNING_RATE,nesterov=True,decay=config.DECAY)
 	opt = Adam(lr=config.LEARNING_RATE)
-	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS, config.NUM_CLASSES, stages=config.STAGES,filters = config.FILTERS, reg=config.NETWORK_REG)
+	model = MiniVGGNet.build(config.RESIZE, config.RESIZE,
+                config.NUM_CHANNELS, config.NUM_CLASSES)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
 

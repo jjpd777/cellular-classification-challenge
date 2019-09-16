@@ -38,25 +38,6 @@ class HDF5DatasetGenerator:
 					labels = np_utils.to_categorical(labels,
 						self.classes)
 
-				# check to see if our preprocessors are not None
-				if self.preprocessors is not None:
-					# initialize the list of processed images
-					procImages = []
-
-					# loop over the images
-					for image in images:
-						# loop over the preprocessors and apply each
-						# to the image
-						for p in self.preprocessors:
-							image = p.preprocess(image)
-
-						# update the list of processed images
-						procImages.append(image)
-
-					# update the images array to be the processed
-					# images
-					images = np.array(procImages)
-
 				# if the data augmenator exists, apply it
 				if self.aug is not None:
 					(images, labels) = next(self.aug.flow(images,
