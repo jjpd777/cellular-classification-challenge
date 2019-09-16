@@ -7,7 +7,7 @@ RESIZE = 128
 NUM_CLASSES = 1108
 NUM_CHANNELS = 6
 
-EPOCHS = 50 
+EPOCHS = 80 
 BATCH_SIZE = 32 
 LEARNING_RATE = 0.01
 POWER = 2.5
@@ -24,7 +24,7 @@ VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
 TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
 HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 PARAMS = "parameters.txt"
-EXP_NUM = "experiment-2/"
+EXP_NUM = "experiment-3/"
 EXPERIMENT_NAME = "./output/" + EXP_NUM
 LOG_NAME = EXPERIMENT_NAME + "console.log" 
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints"
