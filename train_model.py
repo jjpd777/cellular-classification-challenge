@@ -43,10 +43,10 @@ ap.add_argument("-s", "--start-epoch", type=int, default=0,
 	help="epoch to restart training at")
 args = vars(ap.parse_args())
 
-aug = ImageDataGenerator(rescale= 1 / 255.0,rotation_range=20, zoom_range=0.05,
+aug = ImageDataGenerator(rotation_range=20, zoom_range=0.05,
 	width_shift_range=0.05, height_shift_range=0.05, shear_range=0.05,
 	horizontal_flip=True, fill_mode="nearest")
-valaug = ImageDataGenerator(rescale= 1 / 255.0)
+valaug = ImageDataGenerator()
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
  		classes=config.NUM_CLASSES)
@@ -66,6 +66,7 @@ if args["model"] is None:
 # otherwise, load the checkpoint from disk
 else:
 	print("[INFO] loading {}...".format(args["model"]))
+	opt = Adam(lr=config.LEARNING_RATE)
 	model = load_model(args["model"])
 
 	# update the learning rate
@@ -79,7 +80,7 @@ else:
 callbacks = [
 	EpochCheckpoint(config.CHECKPOINTS, every=10,
 		startAt=args["start_epoch"]),
-	TrainingMonitor(config.EXPERIMENT_NAME+"resnet56_pneumonia.png",
+	TrainingMonitor(config.EXPERIMENT_NAME+"trial.png",
 		jsonPath=config.EXPERIMENT_NAME+"resnet56_pneumonia.json",
 		startAt=args["start_epoch"])]
 
