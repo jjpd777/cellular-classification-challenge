@@ -80,13 +80,8 @@ else:
 callbacks = [
 	EpochCheckpoint(config.CHECKPOINTS, every=10,
 		startAt=args["start_epoch"]),
-<<<<<<< HEAD
 	TrainingMonitor(config.EXPERIMENT_NAME+"monitor.png",
 		jsonPath=config.EXPERIMENT_NAME+"monitor.json",
-=======
-	TrainingMonitor(config.EXPERIMENT_NAME+"trial.png",
-		jsonPath=config.EXPERIMENT_NAME+"resnet56_pneumonia.json",
->>>>>>> adf075e7443df84ef66ddfe61f338c5be1e943d9
 		startAt=args["start_epoch"])]
 
 # train the network
