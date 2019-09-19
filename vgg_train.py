@@ -48,7 +48,7 @@ aug = ImageDataGenerator(rescale= 1 / 255.0,rotation_range=20, zoom_range=0.05,
 	horizontal_flip=True, fill_mode="nearest")
 valaug = ImageDataGenerator(rescale= 1 / 255.0)
 # initialize the training and validation dataset generators
-trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
+trainGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE, 
  		classes=config.NUM_CLASSES)
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
  		classes=config.NUM_CLASSES)
@@ -58,7 +58,8 @@ valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
 if args["model"] is None:
 	print("[INFO] compiling model...")
 	#opt = SGD(lr=config.LEARNING_RATE,nesterov=True,decay=config.DECAY)
-	opt = Adam(lr=config.LEARNING_RATE)
+	#opt = Adam(lr=config.LEARNING_RATE)
+	opt = Adam(lr=0.01)
 	model = MiniVGGNet.build(config.RESIZE, config.RESIZE,
                 config.NUM_CHANNELS, config.NUM_CLASSES)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
