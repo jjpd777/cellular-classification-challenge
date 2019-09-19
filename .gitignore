@@ -6,6 +6,7 @@ input/
 clean_data
 # C extensions
 *.so
+*.hdf5
 # Distribution / packaging
 .Python
 build/
