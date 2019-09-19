@@ -1,0 +1,1 @@
+{"hyperparameters": [{"image_size": 224, "epochs": 80, "batch_size": 32, "learning_rate": 0.000333, "decay": 4.1625e-06, "EXP_NUM": 2.5, "network_reg": 0.0001}]}

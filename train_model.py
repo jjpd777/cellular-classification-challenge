@@ -43,14 +43,15 @@ ap.add_argument("-s", "--start-epoch", type=int, default=0,
 	help="epoch to restart training at")
 args = vars(ap.parse_args())
 
-aug = ImageDataGenerator(rotation_range=20, zoom_range=0.05,
-	width_shift_range=0.05, height_shift_range=0.05, shear_range=0.05,
-	horizontal_flip=True, fill_mode="nearest")
-valaug = ImageDataGenerator()
+sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
+#aug = ImageDataGenerator(rotation_range=20, zoom_range=0.05,
+#	width_shift_range=0.05, height_shift_range=0.05, shear_range=0.05,
+#	horizontal_flip=True, fill_mode="nearest")
+#valaug = ImageDataGenerator()
 # initialize the training and validation dataset generators
-trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
+trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE,preprocessors=[sp], 
  		classes=config.NUM_CLASSES)
-valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
+valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,preprocessors=[sp], 
  		classes=config.NUM_CLASSES)
 
 # if there is no specific model checkpoint supplied, then initialize
@@ -72,7 +73,7 @@ else:
 	# update the learning rate
 	print("[INFO] old learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
-	K.set_value(model.optimizer.lr, 0.01)
+	K.set_value(model.optimizer.lr, 0.0003)
 	print("[INFO] new learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
 

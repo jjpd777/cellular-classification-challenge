@@ -52,6 +52,6 @@ if args["build"]:
     final_paths, final_labels = get_paths_and_labels(paths)
     #labels = [train_labels, val_labels, test_labels]
     #print(train_labels[0])
-    BUILD_DIMS = 400 
+    BUILD_DIMS = 300 
     BUILD_CHANELS = 3 
     write_hdf5(final_paths,final_labels, BUILD_DIMS,BUILD_CHANELS,HDF5_OUTPUTS)

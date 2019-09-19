@@ -144,6 +144,7 @@ def write_hdf5(input_paths,input_labels,build_size,channels,output_hdf5s):
     		#image = aap.preprocess(image)
     		# add the image and label # to the HDF5 dataset
                 image = cv2.imread(path)
+                image = cv2.resize(image,(build_size,build_size),interpolation=cv2.INTER_AREA)
                 writer.add([image],[label])
                 #os.remove(path)
                 pbar.update(i)
