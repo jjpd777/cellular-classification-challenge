@@ -32,11 +32,29 @@ class HDF5DatasetGenerator:
 				# extract the images and labels from the HDF dataset
 				images = self.db["images"][i: i + self.batchSize]
 				labels = self.db["labels"][i: i + self.batchSize]
+				images = images/255.0 
 
 				# check to see if the labels should be binarized
 				if self.binarize:
 					labels = np_utils.to_categorical(labels,
 						self.classes)
+				if self.preprocessors is not None:
+					# initialize the list of processed images
+					procImages = []
+
+					# loop over the images
+					for image in images:
+						# loop over the preprocessors and apply each
+						# to the image
+						for p in self.preprocessors:
+							image = p.preprocess(image)
+
+						# update the list of processed images
+						procImages.append(image)
+
+					# update the images array to be the processed
+					# images
+					images = np.array(procImages)
 
 				# if the data augmenator exists, apply it
 				if self.aug is not None:
