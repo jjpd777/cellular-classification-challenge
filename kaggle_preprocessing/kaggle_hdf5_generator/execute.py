@@ -38,8 +38,6 @@ if args["split"]:
     VAL_DISTRIBUTION = [HUVEC_VAL,HEPG2_VAL,RPE_VAL,U2OS_VAL]
     TEST_DISTRIBUTION = [x/2 for x in VAL_DISTRIBUTION]
     SIRNA_LABELS= "./train_sirna_labels.csv"
-    t = pd.read_csv(SIRNA_LABELS)
-    print(t["sirna"].isna().sum())
     splits = split_data(TEST_DISTRIBUTION,VAL_DISTRIBUTION,SIRNA_LABELS,SPLITS_LIST)
 if args["build"]:
     TRAIN_HDF5 = "../kernel_data/hdf5/train.hdf5"
@@ -48,10 +46,7 @@ if args["build"]:
     HDF5_OUTPUTS = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
     train_paths, val_paths, test_paths = load_paths(TRAIN_CSV,VAL_CSV,                                                     TEST_CSV)
     paths = [train_paths,val_paths,test_paths]
-    #train_labels, val_labels, test_labels= get_labels(paths)
     final_paths, final_labels = get_paths_and_labels(paths)
-    #labels = [train_labels, val_labels, test_labels]
-    #print(train_labels[0])
     BUILD_DIMS = 300 
     BUILD_CHANELS = 3 
     write_hdf5(final_paths,final_labels, BUILD_DIMS,BUILD_CHANELS,HDF5_OUTPUTS)

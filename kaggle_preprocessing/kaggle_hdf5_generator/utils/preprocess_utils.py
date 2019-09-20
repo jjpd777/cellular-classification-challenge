@@ -72,8 +72,36 @@ def split_data(test_distribution,val_distributions,clean_path,file_names):
     print("Length of val data is",len(val_data))
     np.random.seed(223)
     np.random.shuffle(train_data)
+    np.random.seed(101)
+    np.random.shuffle(train_data)
+    np.random.seed(7)
+    np.random.shuffle(train_data)
     np.random.seed(29)
     np.random.shuffle(val_data)
+    np.random.seed(499)
+    np.random.shuffle(val_data)
+    np.random.seed(757)
+    np.random.shuffle(test_data)
+    np.random.seed(11)
+    np.random.shuffle(test_data)
+
+    result = train_data + val_data + test_data
+    train = len(train_data)
+    val = len(val_data)
+    test = len(test_data)
+    train_file, val_file, test_file = file_names
+    print("The total available data is ",len(result))
+    print("There are {} training, {} validation and {} test images".format(train,val, test))
+    file_splits = [ (train_file,train_data),(val_file,val_data),
+                    (test_file,test_data)]
+    write_splits(file_splits)
+    return (train_data, val_data,test_data)
+
+def load_paths(train,val,test):
+    train = pd.read_csv(train)
+    train = list(train["data"])
+    val = pd.read_csv(val)
+    val = list(val["data"])
     np.random.seed(757)
     np.random.shuffle(test_data)
 
@@ -102,7 +130,6 @@ def get_paths_and_labels(splits):
     result = []
     paths = []
     for data in splits:
-        print(data)
         buff = [x.split("/")[-1] for x in data]
         label = [int(x.split("?")[0]) for x in buff]
         buff1 = [str(x.split("?")[1]) for x in buff]
@@ -111,7 +138,6 @@ def get_paths_and_labels(splits):
         paths.append(path)
     print("[INFO]There are {} training, {} validation and {} test labels".format(len(result[0]),len(result[1]), len(result[2])))
     labels = [ result[ind] for ind,x in enumerate(result)]
-    print(paths[0][0])
     return paths, labels
 
 def write_hdf5(input_paths,input_labels,build_size,channels,output_hdf5s):
