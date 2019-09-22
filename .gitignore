@@ -4,8 +4,11 @@ __pycache__/
 *$py.class
 input/
 clean_data
+*.hdf5
+*.zip
 # C extensions
 *.so
+*.hdf5
 # Distribution / packaging
 .Python
 build/

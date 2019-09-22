@@ -3,28 +3,28 @@ import os
 # define the paths to the images directory
 IMAGES_PATH = "./clean_data/train/"
 
-RESIZE = 128
+RESIZE =224 
 NUM_CLASSES = 1108
-NUM_CHANNELS = 6
+NUM_CHANNELS =3 
 
-EPOCHS = 50 
+EPOCHS = 80 
 BATCH_SIZE = 32 
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.000333
 POWER = 2.5
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
-FCH1 =64 
-FCH2 = 128
-NETWORK_REG = 0.008
-STAGES = (3,3,3)
-FILTERS = (64,128,128,256)
+FCH1 =512 
+FCH2 = 264 
+NETWORK_REG = 0.0001
+STAGES = (2,3,4)
+FILTERS = (128,64,128,256)
 
-TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
-VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
-TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
+TRAIN_HDF5 = "./kernel_data/hdf5/train.hdf5"
+VAL_HDF5 = "./kernel_data/hdf5/val.hdf5"
+TEST_HDF5 = "./kernel_data/hdf5/test.hdf5"
 HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 PARAMS = "parameters.txt"
-EXP_NUM = "experiment-2/"
+EXP_NUM = "experiment-2-overnight/"
 EXPERIMENT_NAME = "./output/" + EXP_NUM
 LOG_NAME = EXPERIMENT_NAME + "console.log" 
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints"
