@@ -9,7 +9,8 @@ NUM_CHANNELS =3
 
 EPOCHS = 80 
 BATCH_SIZE = 32 
-LEARNING_RATE = 0.000333
+LEARNING_RATE = 0.001
+SECOND_LR = 0.000333
 POWER = 2.5
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
@@ -24,7 +25,7 @@ VAL_HDF5 = "./kernel_data/hdf5/val.hdf5"
 TEST_HDF5 = "./kernel_data/hdf5/test.hdf5"
 HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 PARAMS = "parameters.txt"
-EXP_NUM = "experiment-2-overnight/"
+EXP_NUM = "experiment-finetune/"
 EXPERIMENT_NAME = "./output/" + EXP_NUM
 LOG_NAME = EXPERIMENT_NAME + "console.log" 
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints"
@@ -45,6 +46,7 @@ def store_params():
         'epochs' : EPOCHS,
         'batch_size' : BATCH_SIZE,
         'learning_rate' : LEARNING_RATE,
+        'second_lr' :SECOND_LR,
         'decay' : DECAY,
         'EXP_NUM' : 2.5,
         'network_reg': NETWORK_REG
