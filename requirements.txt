@@ -74,6 +74,6 @@ tensorflow-estimator==1.13.0
 termcolor==1.1.0
 toolz==0.10.0
 uritemplate==3.0.0
-urllib3==1.25.3
+urllib3==1.25.8
 Werkzeug==0.15.6
 zarr==2.3.2
